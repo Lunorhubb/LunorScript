@@ -1,5 +1,5 @@
 -- Your Discord webhook URL
-local WEBHOOK_URL = "https://discord.com/api/webhooks/XXXXXXXXX/XXXXXXXXX"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1245689645304512514/UFA-6zMf9yQhSNKMjaoGr4SSED1EdnBczPwf5LFGx3ZQdVSbyFO8TmEcWzRIfSETIG6I"
 
 -- Delay before scripts start (change this number only)
 local DELAY = 10
